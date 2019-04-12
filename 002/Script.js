@@ -18,7 +18,8 @@ var appData = {
     optionalExpenses: {},
     income: [],
     saving: false
-}
+};
+
 
 var BudjetDay = appData.Budjet / 30;
 
