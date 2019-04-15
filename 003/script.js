@@ -115,10 +115,11 @@ function start()
         appData.Budjet = money;
     } 
     
-    for (let key in appData) 
+    for (let k_ in appData) 
     {
-        console.log(key);
+        console.log(k_);
     }
+
 }
 
 //Вызов функций
