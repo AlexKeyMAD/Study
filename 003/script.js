@@ -78,8 +78,29 @@ let appData = {
             let item = prompt("Перечислите через запятую всё, что принесет доход", "");
             
             appData.income = item.split(", ");
-            appData.income.push(prompt("Ещё что нибудь?", ""));
+            let dopAns = '',
+                temp = false;
+
+            while (temp == false) 
+            {
+                dopAns = prompt("Ещё что нибудь?", "");
+                
+                if (typeof(dopAns) === 'string' && typeof(dopAns) != null && dopAns != '')
+                 {
+                    temp = true;
+                    appData.income.push(dopAns);
+                }    
+            }
+            
             appData.income.sort();
+
+            console.log("Способы доп заработка:");
+
+            appData.income.forEach(function(key, i)
+                {
+                    console.log((++i) + ": " + key);
+                });
+
         }
 };
 
@@ -92,7 +113,12 @@ function start()
     {
         money = +prompt('Ваш бюджет на месяц?',"");
         appData.Budjet = money;
-    }    
+    } 
+    
+    for (let key in appData) 
+    {
+        console.log(key);
+    }
 }
 
 //Вызов функций
