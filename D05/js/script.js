@@ -1,15 +1,16 @@
 let _text = document.getElementById('title'),
-    menu = document.getElementsByClassName('menu'),
-    _but = document.querySelector(".menu-item"),
+    menu = document.getElementsByTagName('ul')[0],
+    _but = document.getElementsByClassName("menu-item"),
     del = document.getElementsByClassName("adv"),
     promt = document.getElementById('prompt');
 
 //1
-//let newBtn = _but.CloneNode();
-//newBtn.classList.add('menu-item');
-//newBtn.
+let newBtn = document.createElement('li');
+newBtn.classList.add('menu-item');
+newBtn.textContent = 'Пятый пункт';
+menu.appendChild(newBtn);
 
-//document.body.appendChild(newBtn);
+menu.insertBefore(_but[1],_but[3]);
 
 //2
 document.body.style.backgroundImage = "url('/img/apple_true.jpg')";
