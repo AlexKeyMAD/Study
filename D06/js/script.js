@@ -174,5 +174,7 @@ buttons[2].addEventListener('click',function()
 
 choose_income.addEventListener('input',function()
 {
-    income.textContent = choose_income.value;
+    let inc = choose_income.value;
+    income.textContent = inc;
+    appData.income = inc.split(', ');
 });
