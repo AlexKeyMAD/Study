@@ -4,7 +4,7 @@ let budget = document.getElementsByClassName('budget-value')[0],
     daybudget = document.getElementsByClassName('daybudget-value')[0],
     level = document.getElementsByClassName('level-value')[0],
     expenses = document.getElementsByClassName('expenses-value')[0],
-    buoptionalexpensesdget = document.getElementsByClassName('optionalexpenses-value')[0],
+    optionalexpenses = document.getElementsByClassName('optionalexpenses-value')[0],
     income = document.getElementsByClassName('income-value')[0],
     monthsavings = document.getElementsByClassName('monthsavings-value')[0],
     yearsavings = document.getElementsByClassName('yearsavings-value')[0];
@@ -13,7 +13,7 @@ let expenses_item = document.getElementsByClassName('expenses-item');
 
 let buttons = document.getElementsByTagName('button');
 
-let optionalexpenses_item = document.querySelectorAll('optionalexpenses-item');
+let optionalexpenses_item = document.querySelectorAll('.optionalexpenses-item');
 
 let choose_income = document.querySelector('.choose-income'),
     checksavings = document.querySelector('.checksavings'),
@@ -30,7 +30,7 @@ let appData = {
     Budjet: money,
     timeData: time,
     expenses: {},
-    optionalExpenses: {},
+    optionalExpenses: [],
     income: [],
     saving: true,
     choseExpenses: {} 
@@ -70,20 +70,7 @@ let appData = {
                     alert("Ежемесячный доход: " + appData.monthIncore);
                 }
         },
-    chooseOptExpenses: function()
-        {
-            for (let i = 1; i < 4; i++)
-                {
-                    let a = prompt('Необязательная статья расхода №' + i,""),
-                        b = prompt('Цена вопроса?',"");
-        
-                    if (typeof(b) != null && a != '' && b != '')
-                    {
-                        console.log('Выполнено');
-                        appData.optionalExpenses[i] = b;
-                    }
-                }
-        },
+    chooseOptExpenses: 0,
     chooseInvome: function()
         {
             let item = prompt("Перечислите через запятую всё, что принесет доход", "");
@@ -157,4 +144,23 @@ buttons[0].addEventListener('click', function()
 
     expenses.textContent = sum;
     
+});
+
+buttons[1].addEventListener('click', function()
+{
+    let sum = 0;
+    
+    for (let i = 0; i < optionalexpenses_item.length; i++)
+    {
+        let b = +optionalexpenses_item[i].value;
+
+        if (isNaN(b) == false)
+        {
+            console.log('Выполнено');
+            appData.optionalExpenses[i] = b;
+            sum = sum + b;
+        }
+     }
+    appData.chooseOptExpenses = sum;
+    optionalexpenses.textContent = sum;
 });
