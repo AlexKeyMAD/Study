@@ -94,7 +94,8 @@ buttons[2].addEventListener('click',function()
 {
     if (appData.Budjet != undefined) 
     {
-        appData.BudjetForDay = (appData.Budjet / 30).toFixed();
+        let exp = +expenses.textContent;
+        appData.BudjetForDay = ((appData.Budjet - exp)/ 30).toFixed();
         daybudget.textContent = appData.BudjetForDay;
         //
         let _text = '';
