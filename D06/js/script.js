@@ -35,29 +35,11 @@ let appData = {
     saving: true,
     choseExpenses: {} 
         ,
-    detectDayBudget: function()
-        {
-            appData.BudjetForDay = (appData.Budjet / 30).toFixed();
-            alert('Ежедневный бюджет: ' + appData.BudjetForDay);
-        },
+    detectDayBudget: 0
+        ,
     detectLevel: function()
         {
-            if (appData.BudjetForDay < 100) 
-                {
-                    console.log("Минимальный уровень достатка.");
-                }
-            else if (appData.BudjetForDay >= 100 && appData.BudjetForDay < 2000) 
-                {
-                    console.log('Средний уровень достатка');
-                }
-            else if (appData.BudjetForDay >= 2000)
-                {
-                    console.log('Высокий уровень достатка');
-                }
-            else
-                {
-                    console.log('Произошла ошибка');
-                }
+            
         },
     checkSavengs: function()
             {
@@ -148,19 +130,49 @@ buttons[0].addEventListener('click', function()
 
 buttons[1].addEventListener('click', function()
 {
-    let sum = 0;
-    
     for (let i = 0; i < optionalexpenses_item.length; i++)
     {
-        let b = +optionalexpenses_item[i].value;
+        let b = optionalexpenses_item[i].value;
 
-        if (isNaN(b) == false)
-        {
-            console.log('Выполнено');
             appData.optionalExpenses[i] = b;
-            sum = sum + b;
-        }
-     }
-    appData.chooseOptExpenses = sum;
-    optionalexpenses.textContent = sum;
+            optionalexpenses.textContent += appData.optionalExpenses[i] + ' ';
+    }
+});
+
+buttons[2].addEventListener('click',function()
+{
+    if (appData.Budjet != undefined) 
+    {
+        appData.BudjetForDay = (appData.Budjet / 30).toFixed();
+        daybudget.textContent = appData.BudjetForDay;
+        //
+        let _text = '';
+
+        if (appData.BudjetForDay < 100) 
+            {
+                _text = "Минимальный уровень достатка.";
+            }
+        else if (appData.BudjetForDay >= 100 && appData.BudjetForDay < 2000) 
+            {
+                _text = 'Средний уровень достатка';
+            }
+        else if (appData.BudjetForDay >= 2000)
+            {
+                _text = 'Высокий уровень достатка';
+            }
+        else
+            {
+                _text = 'Произошла ошибка';
+            }
+        level.textContent = _text;
+    }
+    else
+    {
+        daybudget.textContent = 'Произошла ошибка';        
+    }    
+});
+
+choose_income.addEventListener('input',function()
+{
+    income.textContent = choose_income.value;
 });
