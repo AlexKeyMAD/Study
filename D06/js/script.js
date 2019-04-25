@@ -32,56 +32,7 @@ let appData = {
     expenses: {},
     optionalExpenses: [],
     income: [],
-    saving: true,
-    choseExpenses: {} 
-        ,
-    detectDayBudget: 0
-        ,
-    detectLevel: function()
-        {
-            
-        },
-    checkSavengs: function()
-            {
-            if (appData.saving == true)
-                {
-                    let save = +prompt("Сумма накоплений:"),
-                        percent = +prompt("Процен депозита:");
-
-                    appData.monthIncore = save / 100 * percent / 12;
-                    alert("Ежемесячный доход: " + appData.monthIncore);
-                }
-        },
-    chooseOptExpenses: 0,
-    chooseInvome: function()
-        {
-            let item = prompt("Перечислите через запятую всё, что принесет доход", "");
-            
-            appData.income = item.split(", ");
-            let dopAns = '',
-                temp = false;
-
-            while (temp == false) 
-            {
-                dopAns = prompt("Ещё что нибудь?", "");
-                
-                if (typeof(dopAns) === 'string' && typeof(dopAns) != null && dopAns != '')
-                    {
-                    temp = true;
-                    appData.income.push(dopAns);
-                }    
-            }
-            
-            appData.income.sort();
-
-            console.log("Способы доп заработка:");
-
-            appData.income.forEach(function(key, i)
-                {
-                    console.log((++i) + ": " + key);
-                });
-
-        }
+    saving: false
 };
 
 btStart.addEventListener('click', function()
@@ -177,4 +128,46 @@ choose_income.addEventListener('input',function()
     let inc = choose_income.value;
     income.textContent = inc;
     appData.income = inc.split(', ');
+});
+
+checkSavings.addEventListener('click', function()
+{
+    if (appData.saving == true)
+     {
+        appData.saving = false;
+    }
+    else
+    {
+        appData.saving = true;
+    }
+});
+
+choose_sum.addEventListener('click', function()
+{
+    if (appData.saving == true)
+    {
+        let sum = +choose_sum.value,
+            per = +choose_percent.value; 
+
+        appData.monthIncore = sum / 100 * per / 12;
+        monthsavings.textContent = appData.monthIncore.toFixed(1);
+
+        appData.yearIncore = sum / 100 * per;
+        yearsavings.textContent = appData.yearIncore.toFixed(1);
+    }
+});
+
+choose_percent.addEventListener('click', function()
+{
+    if (appData.saving == true)
+    {
+        let sum = +choose_sum.value,
+            per = +choose_percent.value; 
+
+        appData.monthIncore = sum / 100 * per / 12;
+        monthsavings.textContent = appData.monthIncore.toFixed(1);
+
+        appData.yearIncore = sum / 100 * per;
+        yearsavings.textContent = appData.yearIncore.toFixed(1);
+    }
 });
