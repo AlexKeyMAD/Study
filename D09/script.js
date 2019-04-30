@@ -19,13 +19,13 @@ window.addEventListener('DOMContentLoaded',function()
     hideTabContent(1);
 
     function showTabContent(b) {
-        if (tabcontent[b].classList.contains('hide'))
+        if (tabContent[b].classList.contains('hide'))
          {
             tabContent[b].classList.remove('hide');
             tabContent[b].classList.add('show');
         }
         
-    }
+    };
 
     info.addEventListener('click', function(event)
     {
@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded',function()
                 if (target == tab[i])
                 {
                     hideTabContent(0);
-                    hideTabContent(i);
+                    showTabContent(i);
 
                     break;
                 };
