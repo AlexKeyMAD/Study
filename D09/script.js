@@ -95,4 +95,40 @@ window.addEventListener('DOMContentLoaded',function()
 
     setClock('timer', deadline);
 
+    //Modal window
+
+    let more = document.querySelector('.more'),
+        overlay = document.querySelector('.overlay'),
+        close = document.querySelector('.popup-close');
+
+    more.addEventListener('click', function(event)
+    {
+        openInfo.call(this);
+    });
+
+    close.addEventListener('click', function()
+    {
+        overlay.style.display = 'none';
+        more.classList.remove('more-splash');
+        document.body.style.overflow = '';
+    });
+
+    let btn_inf = document.getElementsByClassName('description-btn');
+
+    for (let i = 0; i < btn_inf.length; i++) 
+    {
+        let _btn_inf = btn_inf[i];
+        _btn_inf.addEventListener('click', function()
+        {
+            openInfo.call(this);
+        });       
+    };
+
+    function openInfo()
+     {
+        overlay.style.display = 'block';
+        this.classList.add('more-splash');
+        document.body.style.overflow = 'hidden';       
+    }
+
 });
