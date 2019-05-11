@@ -48,7 +48,7 @@ window.addEventListener('DOMContentLoaded',function()
 
     //Timer
 
-    let deadline = '2019-05-03';
+    let deadline = '2019-05-05';
     
     function getTimeRemaining(endTime) 
     {
@@ -80,10 +80,7 @@ window.addEventListener('DOMContentLoaded',function()
             hours.textContent = String(t.hours).padStart(2,'00');
             minutes.textContent = String(t.minutes).padStart(2,'00');
             seconds.textContent = String(t.seconds).padStart(2,'00');
-            //hours.textContent = ('00' + t.hours).substr(('00' + t.hours).length - 2);
-            //minutes.textContent = ('00' + t.minutes).substr(('00' + t.minutes).length - 2);
-            //seconds.textContent = ('00' + t.seconds).substr(('00' + t.seconds).length - 2);
-
+         
             if (t.total <= 0 ) 
             {
                 clearInterval(timeInterval);  
