@@ -131,4 +131,27 @@ window.addEventListener('DOMContentLoaded',function()
         document.body.style.overflow = 'hidden';       
     }
 
+    class Options {
+        constructor(height,width,bg,fontSize,textAlign) {
+            this.height = height;
+            this.width = width;
+            this.bg = bg;
+            this.fontSize = fontSize;
+            this.textAlign = textAlign;
+        }
+        
+        NewTextDiv() {
+            let newDiv = document.createElement("text_div");
+                document.body.appendChild(newDiv);
+                newDiv.style.height = this.height;
+                newDiv.style.width = this.width;
+                newDiv.style.bg = this.bg;
+                newDiv.style.fontSize = this.fontSize;
+                newDiv.textContent = this.textAlign;
+        }
+    }
+
+    let div_ = new Options(10,10,10,"20px",'ttttttt');
+    div_.NewTextDiv();
+
 });
