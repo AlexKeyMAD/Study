@@ -10,6 +10,12 @@ inputKZT.addEventListener('input', () => {
     request.send();
 
     request.addEventListener('readystatechange', function() {
-        if (request.readyState == 4 && request.status == 200)
+        if (request.readyState == 4 && request.status == 200) {
+            let data = JSON.parse(request.response);
+
+            inputUSD.value = (inputKZT.value / data.usd);
+        } else {
+            inputUSD.value = 'ошибка расчета';
+        }
     })
 })
