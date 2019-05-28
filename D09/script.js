@@ -170,55 +170,100 @@ window.addEventListener('DOMContentLoaded',function()
         event.preventDefault();
         form.appendChild(statusMessage);
 
-        function newReqest() {
+        let request = new XMLHttpRequest();
 
-            let promise = new Promise(function(resolve, reject) {
-                
-                    let request = new XMLHttpRequest();
+        request.open('POST', 'server.php');
+        request.setRequestHeader('Content-Type', 'application/x-www-from-urlencoded');
+        //request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-                    request.open('POST', 'server.php');
-                    //request.setRequestHeader('Content-Type', 'application/x-www-from-urlencoded');
-                    request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        let formData = new FormData(form);
 
-                    let formData = new FormData(form);
+        let obj = {};
+        formData.forEach(function(value, key) {
+            obj[key] = value;
+        });
+        let json = JSON.stringify(obj);
 
-                    let obj = {};
-                    formData.forEach(function(value, key) {
-                        obj[key] = value;
-                    });
-                    let json = JSON.stringify(obj);
+        //request.send(formData);
+        request.send(json);
 
-                    //request.send(formData);
-                    request.send(json);
-
-                    request.addEventListener('readystatechange', function() {
-                        if (request.readyState < 4) {
-                            //statusMessage.innerHTML = message.loading;
-                            resolve();
-                        } else if (request.readyState == 4 && request.status == 200) {
-                            //statusMessage.innerHTML = message.success;
-                            resolve();
-                        } else {
-                            //statusMessage.innerHTML = message.failure;
-                            reject();
-                        }
-                    });
-
-                    for (let i = 0; i < input.length; i++) {
-                        input[i].value = '';
-                    }
-
+        request.addEventListener('readystatechange', function() {
+            if (request.readyState < 4) {
+                statusMessage.innerHTML = message.loading;
+                //resolve();
+            } else if (request.readyState == 4 && request.status == 200) {
+                statusMessage.innerHTML = message.success;
+                //resolve();
+            } else {
+                statusMessage.innerHTML = message.failure;
+                //reject();
+            }
         });
 
+        for (let i = 0; i < input.length; i++) {
+            input[i].value = '';
         }
 
-        newReqest()
-            .then(() => statusMessage.innerHTML = message.loading)
-            .then(() => statusMessage.innerHTML = message.success)
-            .then(() => statusMessage.innerHTML = message.failure);
+        
+    });
 
-        promise.
+    //slider
 
+    let sliderIndex = 1,
+        slides = document.querySelectorAll('.slider-item'),
+        prev = document.querySelector('.prev'),
+        next = document.querySelector('.next'),
+        dotsWrap = document.querySelector('.slider-dots'),
+        dots = document.querySelectorAll('.dot');
+
+    showSlides(sliderIndex);
+
+    function showSlides(n) {
+
+        if (n > slides.length) {
+            sliderIndex = 1;
+        }
+
+        if (n < 1) {
+            sliderIndex = slides.length;
+        }
+        
+        slides.forEach((item) => item.style.display = 'none');
+
+        dots.forEach((item) => item.classList.remove('dot-active'));
+
+        slides[sliderIndex - 1].style.display = 'block';
+        dots[sliderIndex - 1].classList.add('dot-active');
+
+    }
+
+    function plusSlide(n) {
+        showSlides(sliderIndex += n);
+    }
+    
+    function currentSlide(n) {
+        showSlides(sliderIndex = n);
+    }
+
+    prev.addEventListener('click', function() {
+        plusSlide(-1);
+    });
+
+    next.addEventListener('click', function() {
+        plusSlide(1);
+    });
+    
+    dotsWrap.addEventListener('click', function(event) {
+        
+        for (let i = 0; i < dots.length + 1; i++) {
+            
+            if (event.target.classList.contains('dot') && event.target == dots[i - 1]) {
+                
+                currentSlide(i);
+
+            }
+            
+        }
 
     });
 
