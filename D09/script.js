@@ -170,36 +170,55 @@ window.addEventListener('DOMContentLoaded',function()
         event.preventDefault();
         form.appendChild(statusMessage);
 
-        let request = new XMLHttpRequest();
+        function newReqest() {
 
-        request.open('POST', 'server.php');
-        //request.setRequestHeader('Content-Type', 'application/x-www-from-urlencoded');
-        request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+            let promise = new Promise(function(resolve, reject) {
+                
+                    let request = new XMLHttpRequest();
 
-        let formData = new FormData(form);
+                    request.open('POST', 'server.php');
+                    //request.setRequestHeader('Content-Type', 'application/x-www-from-urlencoded');
+                    request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-        let obj = {};
-        formData.forEach(function(value, key) {
-            obj[key] = value;
+                    let formData = new FormData(form);
+
+                    let obj = {};
+                    formData.forEach(function(value, key) {
+                        obj[key] = value;
+                    });
+                    let json = JSON.stringify(obj);
+
+                    //request.send(formData);
+                    request.send(json);
+
+                    request.addEventListener('readystatechange', function() {
+                        if (request.readyState < 4) {
+                            //statusMessage.innerHTML = message.loading;
+                            resolve();
+                        } else if (request.readyState == 4 && request.status == 200) {
+                            //statusMessage.innerHTML = message.success;
+                            resolve();
+                        } else {
+                            //statusMessage.innerHTML = message.failure;
+                            reject();
+                        }
+                    });
+
+                    for (let i = 0; i < input.length; i++) {
+                        input[i].value = '';
+                    }
+
         });
-        let json = JSON.stringify(obj);
 
-        //request.send(formData);
-        request.send(json);
-
-        request.addEventListener('readystatechange', function() {
-            if (request.readyState < 4) {
-                statusMessage.innerHTML = message.loading;
-            } else if (request.readyState == 4 && request.status == 200) {
-                statusMessage.innerHTML = message.success
-            } else {
-                statusMessage.innerHTML = message.failure;
-            }
-        });
-
-        for (let i = 0; i < input.length; i++) {
-            input[i].value = '';
         }
+
+        newReqest()
+            .then(() => statusMessage.innerHTML = message.loading)
+            .then(() => statusMessage.innerHTML = message.success)
+            .then(() => statusMessage.innerHTML = message.failure);
+
+        promise.
+
 
     });
 
