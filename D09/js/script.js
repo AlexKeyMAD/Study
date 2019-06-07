@@ -271,7 +271,8 @@ window.addEventListener('DOMContentLoaded',function()
 
     let persons = document.querySelectorAll('.counter-block-input')[0],
         restDays = document.querySelectorAll('.counter-block-input')[1],
-        place = document.getElementById('select'),
+        //place = document.getElementById('select'),
+        place = $('select'),
         totalValue = document.getElementById('total'),
         personsSum = 0,
         daysSum = 0,
@@ -282,7 +283,7 @@ window.addEventListener('DOMContentLoaded',function()
         persons.addEventListener('change', function() {
             
             personsSum = +this.value;
-            total = (daysSum + personsSum) * 4000;
+            total = (daysSum * personsSum) * 4000;
 
             if (restDays.value == '') {
                 totalValue.innerHTML = 0;
@@ -295,7 +296,7 @@ window.addEventListener('DOMContentLoaded',function()
         restDays.addEventListener('change', function() {
             
             daysSum = +this.value;
-            total = (daysSum + personsSum) * 4000;
+            total = (daysSum * personsSum) * 4000;
 
             if (personsSum.value == '') {
                 totalValue.innerHTML = 0;
@@ -305,7 +306,7 @@ window.addEventListener('DOMContentLoaded',function()
 
         });
         
-        place.addEventListener('change', function() {
+        place[0].addEventListener('change', function() {
             
             if (personsSum.value == '' || restDays.value == '') {
                 totalValue.innerHTML = 0;
