@@ -271,8 +271,7 @@ window.addEventListener('DOMContentLoaded',function()
 
     let persons = document.querySelectorAll('.counter-block-input')[0],
         restDays = document.querySelectorAll('.counter-block-input')[1],
-        //place = document.getElementById('select'),
-        place = $('select'),
+        place = $('select:first'),
         totalValue = document.getElementById('total'),
         personsSum = 0,
         daysSum = 0,
@@ -306,8 +305,8 @@ window.addEventListener('DOMContentLoaded',function()
 
         });
         
-        place[0].addEventListener('change', function() {
-            
+         place.on('change', function() {
+        
             if (personsSum.value == '' || restDays.value == '') {
                 totalValue.innerHTML = 0;
             } else {
